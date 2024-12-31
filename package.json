@@ -1,7 +1,11 @@
 {
   "name": "super-ops",
   "version": "0.1.0",
+  "main": "main.js",
+  "author": "Jane Doe",
+  "license": "MIT",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -10,6 +14,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "antd": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
@@ -17,6 +22,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
+    "elStart": "electron .",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -39,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^34.0.0-beta.14"
   }
 }
