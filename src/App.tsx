@@ -3,9 +3,13 @@ import {
     CloudServerOutlined,
     HomeOutlined,
     UserOutlined,
+    WechatWorkOutlined
 } from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Layout, Menu, theme, Button, Dropdown, Space} from 'antd';
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import AiAssistant from './page/ai/AiAssistant';
+import HomePage from './page/homepage/HomePage';
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -26,7 +30,8 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem('首页', '1', <HomeOutlined/>),
+    getItem(<Link to="/">首页</Link>, '1', <HomeOutlined/>),
+    getItem(<Link to="/ai-assistant">ai 助手</Link>, '4', <WechatWorkOutlined/>),
     getItem('服务中心', '2', <CloudServerOutlined/>),
     getItem('环境配置', '3', <CloudServerOutlined/>),
     getItem('用户中心', 'sub1', <UserOutlined/>)
@@ -66,40 +71,42 @@ const App: React.FC = () => {
     } = theme.useToken();
 
     return (
-        <Layout style={{minHeight: '100vh'}}>
-            <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-                <div className="demo-logo-vertical"/>
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items}/>
-            </Sider>
-            <Layout>
-                <Header style={{padding: 0, background: colorBgContainer}}>
-                    <Space direction="vertical">
-                        <Space wrap>
-                            <Dropdown menu={{items: userItems}} placement="bottomLeft" arrow>
-                                <Button>用户</Button>
-                            </Dropdown>
+        <Router>
+            <Layout style={{minHeight: '100vh'}}>
+                <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+                    <div className="demo-logo-vertical"/>
+                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items}/>
+                </Sider>
+                <Layout>
+                    <Header style={{padding: 0, background: colorBgContainer}}>
+                        <Space direction="vertical" style={{float: "right", marginRight: "5px"}}>
+                            <Space wrap>
+                                <Dropdown menu={{items: userItems}} placement="bottomLeft" arrow>
+                                    <Button>用户</Button>
+                                </Dropdown>
+                            </Space>
                         </Space>
-                    </Space>
-                </Header>
-                <Content style={{margin: '0 16px'}}>
-                    <div
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            background: colorBgContainer,
-                            borderRadius: borderRadiusLG,
-                        }}
-                    >
-                        Bill is a cat.<br/>
-                        Bill is a cat.<br/>
-                        Bill is a cat.<br/>
-                    </div>
-                </Content>
-                <Footer style={{textAlign: 'center'}}>
-                    Super Ops ©{new Date().getFullYear()} Created by Jianbin Chen
-                </Footer>
+                    </Header>
+                    <Content style={{margin: '16px 16px 16px 16px'}}>
+                        <div
+                            style={{
+                                minHeight: 360,
+                                background: colorBgContainer,
+                                borderRadius: borderRadiusLG,
+                            }}
+                        >
+                            <Routes>
+                                <Route path="/" element={<HomePage/>}/>
+                                <Route path="/ai-assistant" element={<AiAssistant/>}/>
+                            </Routes>
+                        </div>
+                    </Content>
+                    <Footer style={{textAlign: 'center'}}>
+                        Super Ops ©{new Date().getFullYear()} Created by Jianbin Chen
+                    </Footer>
+                </Layout>
             </Layout>
-        </Layout>
+        </Router>
     );
 };
 
